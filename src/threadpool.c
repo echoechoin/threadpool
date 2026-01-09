@@ -211,6 +211,7 @@ int threadpool_destroy(threadpool_t *pool, int flags)
     do {
         /* Already shutting down */
         if(pool->shutdown) {
+            pthread_mutex_unlock(&(pool->lock));
             err = threadpool_shutdown;
             break;
         }
